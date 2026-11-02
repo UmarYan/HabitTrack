@@ -1,20 +1,21 @@
-# Loop Habit Tracker — PWA reconstruction (V1)
+# Loop-like Habit Tracker PWA (starter)
 
-This is a Progressive Web App reconstruction aimed at matching Loop Habit Tracker's interaction model and mobile-first layout.
+Offline-first browser/PWA habit tracker with a compact Loop-inspired weekly grid.
+
+## Run
+Serve this directory on HTTPS or localhost (service worker requires a secure context). GitHub Pages/Netlify/Cloudflare Pages work. Open `index.html`; install from the browser menu.
 
 ## Included
-- Habit dashboard with weekly navigation and check-in states
-- Habit creation/editing with schedule, measurable targets and reminders configuration
-- Habit detail, score/streak indicators, date notes, history calendar and statistics views
-- Archive/restore, JSON backup restore/export and CSV export
-- Local-first browser storage, PWA manifest and service worker
+- Habit add/edit/delete, color and descriptions
+- Daily, weekdays, weekends, custom weekdays and 3×/week schedule options
+- Weekly checkmarks (complete / skip / clear)
+- LocalStorage persistence
+- Strength score overview, recent history
+- JSON backup restore and CSV checkmark export
+- Installable manifest and offline service worker
 
-## Install
-Serve this folder over HTTPS (or localhost), open it in a supported browser, then use the browser's **Add to Home screen / Install app** option.
+## Limitations
+This is an independently implemented PWA prototype, not the full native Loop Android app. Reminder permissions are requested but reliable timed background delivery, Android widgets, SQLite export and native integrations are not implemented in a PWA. Habit strength is a simple weighted approximation, not Loop's original scoring algorithm.
 
-## Important fidelity limitations
-This is a web reconstruction, not a direct conversion of Loop's native Android source. Native Android home-screen widgets, exact alarm scheduling, notification action buttons, SQLite database compatibility, and full pixel-perfect/native behavior are not available in this V1. The scoring/scheduling implementation is an approximation and should not be represented as identical to Loop until cross-checked against the source and test cases.
-
-## Source reference and license
-Loop Habit Tracker's upstream source is published by iSoron under GPL-3.0: https://github.com/iSoron/uhabits
-This reconstruction does not bundle upstream source code. Review GPL and trademark terms before redistributing any derived work.
+## Licensing note
+This prototype's code is newly written and does not bundle Loop source. If you later port or modify Loop's GPL-3.0 code, preserve copyright and license notices and comply with GPLv3 when distributing the derivative. Loop source: https://github.com/iSoron/uhabits

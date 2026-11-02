@@ -1,17 +1,9 @@
 {
-  "name": "Habit Tracker \u2014 Extensive",
-  "short_name": "Habit Tracker",
-  "description": "Offline-first comprehensive habit tracker PWA prototype",
+  "name": "Loop-like Habit Tracker",
+  "short_name": "Habits",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "icons": [
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#303030",
+  "theme_color": "#292929",
+  "description": "Offline-first habit tracking PWA"
 }
