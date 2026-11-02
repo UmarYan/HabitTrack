@@ -1,29 +1,20 @@
-# Habit Tracker — Extensive PWA Prototype
+# Loop Habit Tracker — PWA reconstruction (V1)
 
-A substantial installable-web prototype with Loop-like minimalist interaction patterns. This is an independent implementation, not the official Loop app or a pixel-perfect Android clone.
+This is a Progressive Web App reconstruction aimed at matching Loop Habit Tracker's interaction model and mobile-first layout.
 
-## Included screens
-- Home/dashboard: date-strip/week navigation, selected-date checkmarks, custom/name/score sort
-- Habit detail: strength score, current/best streak, completion rate, recent calendar, 12-week chart, date notes, archive/delete
-- Statistics: habit selection, 30/90/365/all range controls, score, streaks, completion rate, chart, heatmap and recent activity
-- History: month calendar, date-specific status editor (done/skip/clear/value), notes, monthly summaries
-- Create/Edit habit: Boolean and measurable tracking; at-least/at-most goals; daily, weekday, quota/week, quota/month, alternate, weekly and biweekly schedules; colors; reminder metadata and days
-- Archived habits: restore or delete
-- Settings: light/dark theme, week start, day rollover setting, confetti setting, notification permission prompt, JSON backup import/export, CSV export and reset
-- LocalStorage persistence and offline PWA service worker
+## Included
+- Habit dashboard with weekly navigation and check-in states
+- Habit creation/editing with schedule, measurable targets and reminders configuration
+- Habit detail, score/streak indicators, date notes, history calendar and statistics views
+- Archive/restore, JSON backup restore/export and CSV export
+- Local-first browser storage, PWA manifest and service worker
 
-## Run/install
-Use an HTTP static server to serve this folder (service worker/PWA install needs HTTPS or localhost). On Android Chrome, open the served app and choose Install app / Add to Home screen.
+## Install
+Serve this folder over HTTPS (or localhost), open it in a supported browser, then use the browser's **Add to Home screen / Install app** option.
 
-## Current limitations (honest scope)
-- Web PWA is not native Android APK.
-- Reminders are saved as metadata; reliable scheduled Android notifications with Done/Skip/Snooze action need native Android AlarmManager/WorkManager + notification action receiver.
-- PWA home-screen widgets aren't implemented.
-- Exact Loop data schema, exact score algorithm and full SQLite/CSV interoperability aren't guaranteed; score/streak calculations are prototype approximations.
-- Some quota schedules are simplified, not a complete frequency engine.
-- No drag-and-drop habit reorder yet; sort choices are implemented.
-- No automated test suite or browser/device test has been run; syntax validation was performed where available.
+## Important fidelity limitations
+This is a web reconstruction, not a direct conversion of Loop's native Android source. Native Android home-screen widgets, exact alarm scheduling, notification action buttons, SQLite database compatibility, and full pixel-perfect/native behavior are not available in this V1. The scoring/scheduling implementation is an approximation and should not be represented as identical to Loop until cross-checked against the source and test cases.
 
-## License / reference
-Loop Habit Tracker is GPL-3.0 open source. Official reference: https://github.com/iSoron/uhabits and https://play.google.com/store/apps/details?id=org.isoron.uhabits.
-This prototype was independently written and does not bundle Loop source or assets.
+## Source reference and license
+Loop Habit Tracker's upstream source is published by iSoron under GPL-3.0: https://github.com/iSoron/uhabits
+This reconstruction does not bundle upstream source code. Review GPL and trademark terms before redistributing any derived work.
