@@ -1,132 +1,104 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title>Habit Track — Habit Tracker</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon.svg">
-<link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff"><title>Habit Tracker</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app-shell">
-  <header class="topbar">
-    <button class="icon-btn" id="menuBtn" aria-label="Open navigation">☰</button>
-    <div class="brand"><span class="brand-mark">◉</span><span id="pageTitle">Habits</span></div>
-    <button class="icon-btn" id="addBtn" aria-label="Add habit">＋</button>
-  </header>
-  <aside class="drawer hidden" id="drawer">
-    <div class="drawer-head">Habit Track</div>
-    <button data-page="home">☑ &nbsp; Habits</button>
-    <button data-page="stats">▥ &nbsp; Statistics</button>
-    <button data-page="history">▦ &nbsp; History</button>
-    <button data-page="settings">⚙ &nbsp; Settings</button>
-    <div class="drawer-note">Local-first · No account</div>
-  </aside>
-  <main id="main">
-    <section class="page" id="homePage">
-      <div class="date-strip">
-        <button class="small-icon" id="prevWeek" aria-label="Previous week">‹</button>
-        <div class="week-label" id="weekLabel">This week</div>
-        <button class="small-icon" id="nextWeek" aria-label="Next week">›</button>
-      </div>
-      <div class="week-grid" id="weekGrid"></div>
-      <div class="section-caption"><span>YOUR HABITS</span><span id="completionSummary">0 / 0</span></div>
-      <div id="habitList" class="habit-list"></div>
-      <div class="empty-state hidden" id="emptyState">
-        <div class="empty-symbol">◉</div><h2>Start with a habit</h2>
-        <p>Add a habit you want to build. Your progress stays on this device.</p>
-        <button class="primary-btn" id="emptyAdd">＋ Add habit</button>
-      </div>
-    </section>
-
-    <section class="page hidden" id="statsPage">
-      <div class="page-heading"><h1>Statistics</h1><p>Review your progress over time.</p></div>
-      <label class="field-label" for="statsHabit">Habit</label>
-      <select id="statsHabit" class="control"></select>
-      <div class="stats-card">
-        <div class="stats-title">Habit strength</div>
-        <div class="score-row"><strong id="scoreValue">0%</strong><span class="muted">Current score</span></div>
-        <div class="chart" id="scoreChart" aria-label="Habit strength chart"></div>
-        <div class="chart-legend"><span>Older</span><span>Recent</span></div>
-      </div>
-      <div class="stats-card">
-        <div class="stats-title">Completion history</div>
-        <div class="heatmap" id="heatmap"></div>
-        <div class="chart-legend"><span>Less</span><span class="heat-key"></span><span>More</span></div>
-      </div>
-      <div class="metrics-grid">
-        <div class="metric"><span>Current streak</span><strong id="currentStreak">0 days</strong></div>
-        <div class="metric"><span>Best streak</span><strong id="bestStreak">0 days</strong></div>
-        <div class="metric"><span>Completion rate</span><strong id="completionRate">0%</strong></div>
-        <div class="metric"><span>Total completed</span><strong id="totalCompleted">0</strong></div>
-      </div>
-    </section>
-
-    <section class="page hidden" id="historyPage">
-      <div class="page-heading"><h1>History</h1><p>Daily records for your habits.</p></div>
-      <label class="field-label" for="historyHabit">Habit</label>
-      <select id="historyHabit" class="control"></select>
-      <div id="historyRows" class="history-rows"></div>
-    </section>
-
-    <section class="page hidden" id="settingsPage">
-      <div class="page-heading"><h1>Settings</h1><p>Manage your local tracker.</p></div>
-      <div class="settings-card">
-        <div><strong>Appearance</strong><p>Minimal light interface</p></div><span class="setting-pill">Light</span>
-      </div>
-      <div class="settings-card">
-        <div><strong>Data backup</strong><p>Export your habits and records as JSON.</p></div><button class="outline-btn" id="exportBtn">Export</button>
-      </div>
-      <div class="settings-card">
-        <div><strong>Restore backup</strong><p>Import a JSON backup from this app.</p></div><button class="outline-btn" id="importBtn">Import</button><input type="file" id="importFile" accept=".json,application/json" hidden>
-      </div>
-      <div class="settings-card">
-        <div><strong>Reset demo data</strong><p>Remove all habits and tracking records.</p></div><button class="danger-btn" id="resetBtn">Reset</button>
-      </div>
-      <div class="about-note">Habit Track · Minimum PWA prototype · Local storage</div>
-    </section>
-
-    <section class="page hidden" id="editorPage">
-      <div class="page-heading"><h1 id="editorTitle">New habit</h1><p>Create or update a habit.</p></div>
-      <form id="habitForm">
-        <input type="hidden" id="habitId">
-        <label class="field-label" for="habitName">Name</label>
-        <input class="control" id="habitName" maxlength="80" placeholder="e.g. Read a book" required>
-        <label class="field-label" for="habitDescription">Description <span class="muted">(optional)</span></label>
-        <textarea class="control textarea" id="habitDescription" rows="2" placeholder="A little context"></textarea>
-        <label class="field-label" for="habitFrequency">Frequency</label>
-        <select class="control" id="habitFrequency">
-          <option value="daily">Every day</option>
-          <option value="weekly3">3 times per week</option>
-          <option value="weekly5">5 times per week</option>
-          <option value="alternate">Every other day</option>
-          <option value="weekly">Once per week</option>
-        </select>
-        <div class="form-row">
-          <div class="grow"><label class="field-label" for="habitColor">Color</label><select class="control" id="habitColor"><option value="#4caf85">Mint</option><option value="#5b8def">Blue</option><option value="#e0a14b">Amber</option><option value="#a17be0">Violet</option><option value="#e47788">Rose</option></select></div>
-          <div class="grow"><label class="field-label" for="habitType">Type</label><select class="control" id="habitType"><option value="boolean">Yes / No</option><option value="measurable">Measurable</option></select></div>
-        </div>
-        <div id="measureFields" class="hidden">
-          <div class="form-row"><div class="grow"><label class="field-label" for="measureTarget">Target</label><input type="number" class="control" id="measureTarget" min="0" value="1"></div><div class="grow"><label class="field-label" for="measureUnit">Unit</label><input class="control" id="measureUnit" placeholder="pages, ml…"></div></div>
-        </div>
-        <div class="reminder-box">
-          <label class="checkline"><input type="checkbox" id="reminderEnabled"> <span>Enable reminder</span></label>
-          <input type="time" id="reminderTime" class="control time-control" value="08:00">
-        </div>
-        <div class="editor-actions"><button type="button" class="outline-btn" id="cancelEdit">Cancel</button><button type="submit" class="primary-btn">Save habit</button></div>
-      </form>
-    </section>
-  </main>
-  <nav class="bottom-nav">
-    <button class="nav-item active" data-page="home"><span>☑</span><small>Habits</small></button>
-    <button class="nav-item" data-page="stats"><span>▥</span><small>Statistics</small></button>
-    <button class="nav-item" data-page="history"><span>▦</span><small>History</small></button>
-    <button class="nav-item" data-page="settings"><span>⚙</span><small>Settings</small></button>
-  </nav>
+<div class="app">
+<header class="appbar">
+ <button class="icon" id="menu" aria-label="Navigation">☰</button>
+ <div class="titlewrap"><span class="logo">◉</span><span id="topTitle">Habits</span></div>
+ <button class="icon" id="add" aria-label="Create habit">＋</button>
+</header>
+<div class="drawer scrim hidden" id="drawer">
+ <nav class="drawer-panel">
+  <div class="drawer-brand"><span class="logo">◉</span> Habit Tracker</div>
+  <button data-nav="home">☑ <span>Habits</span></button><button data-nav="stats">▥ <span>Statistics</span></button>
+  <button data-nav="history">▦ <span>History</span></button><button data-nav="archive">▤ <span>Archived habits</span></button>
+  <button data-nav="settings">⚙ <span>Settings</span></button>
+  <div class="drawer-foot">Private · Offline-first</div>
+ </nav>
 </div>
-<div class="toast" id="toast"></div>
+<main id="main">
+<section id="home" class="screen">
+ <div class="week-head"><button class="text-icon" id="weekPrev">‹</button><div><strong id="weekCaption">This week</strong><button class="subtle" id="todayBtn">Today</button></div><button class="text-icon" id="weekNext">›</button></div>
+ <div class="week" id="week"></div>
+ <div class="list-tools"><span class="eyebrow">HABITS <span id="habitCount"></span></span><button class="subtle" id="sortBtn">Sort: Custom ▾</button></div>
+ <div id="habitList"></div>
+ <div id="homeEmpty" class="empty hidden"><div class="empty-icon">◉</div><h2>Build a habit</h2><p>Add your first habit and start tracking your progress.</p><button class="primary" id="emptyAdd">＋ Create habit</button></div>
+</section>
+<section id="detail" class="screen hidden">
+ <div class="backhead"><button class="icon" data-back="home">‹</button><div><div id="detailName" class="head-title">Habit</div><div id="detailSub" class="muted">Habit details</div></div><button class="icon" id="detailEdit">✎</button><button class="icon" id="detailMore">⋮</button></div>
+ <div class="detail-score card"><div><span class="eyebrow">HABIT STRENGTH</span><div id="detailScore" class="bigscore">0%</div></div><div class="score-ring" id="scoreRing"><span id="ringText">0</span></div></div>
+ <div class="metrics"><div class="metric card"><span>Current streak</span><strong id="detailCurrent">0</strong><small>days</small></div><div class="metric card"><span>Best streak</span><strong id="detailBest">0</strong><small>days</small></div><div class="metric card"><span>Completion rate</span><strong id="detailRate">0%</strong></div></div>
+ <div class="card"><div class="card-head"><strong>History</strong><button class="subtle" id="detailHistoryMore">View all</button></div><div id="detailCalendar" class="mini-calendar"></div></div>
+ <div class="card"><div class="card-head"><strong>Score history</strong><span class="muted">Last 12 weeks</span></div><div id="detailChart" class="bar-chart"></div></div>
+ <div class="card"><div class="card-head"><strong>Habit notes</strong><button class="subtle" id="addNote">＋ Add note</button></div><div id="notesList" class="notes-list"></div></div>
+ <div class="detail-actions"><button class="outline" id="archiveBtn">Archive habit</button><button class="danger-outline" id="deleteBtn">Delete</button></div>
+</section>
+<section id="stats" class="screen hidden">
+ <div class="page-heading"><h1>Statistics</h1><p>Understand your consistency and progress.</p></div>
+ <label class="label">Habit</label><select id="statsHabit" class="input"></select>
+ <div class="range-tabs" id="rangeTabs"><button data-range="30" class="active">30 days</button><button data-range="90">90 days</button><button data-range="365">1 year</button><button data-range="all">All</button></div>
+ <div class="card stat-hero"><span class="eyebrow">CURRENT HABIT STRENGTH</span><div class="hero-score" id="statsScore">0%</div><div class="progress"><span id="statsProgress"></span></div><div class="muted" id="statsScoreText">Score trend</div></div>
+ <div class="stats-grid"><div class="card statbox"><span>Current streak</span><strong id="statsCurrent">0 days</strong></div><div class="card statbox"><span>Best streak</span><strong id="statsBest">0 days</strong></div><div class="card statbox"><span>Completion rate</span><strong id="statsRate">0%</strong></div><div class="card statbox"><span>Total completions</span><strong id="statsTotal">0</strong></div></div>
+ <div class="card"><div class="card-head"><strong>Completion by period</strong><span class="muted" id="periodLabel">Daily</span></div><div id="statsBars" class="bar-chart tall"></div></div>
+ <div class="card"><div class="card-head"><strong>Consistency map</strong><span class="muted">Tap date to edit</span></div><div class="heatmap" id="statsHeat"></div><div class="heat-legend"><span>Less</span><div></div><span>More</span></div></div>
+ <div class="card"><div class="card-head"><strong>Recent activity</strong><button class="subtle" id="statsHistory">History</button></div><div id="statsRecent"></div></div>
+</section>
+<section id="history" class="screen hidden">
+ <div class="page-heading"><h1>History</h1><p>Review or correct any day.</p></div>
+ <label class="label">Habit</label><select id="historyHabit" class="input"></select>
+ <div class="month-nav"><button class="text-icon" id="monthPrev">‹</button><strong id="monthCaption"></strong><button class="text-icon" id="monthNext">›</button></div>
+ <div class="calendar-weekdays"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+ <div id="historyCalendar" class="calendar"></div>
+ <div class="card selected-date-card"><div class="card-head"><strong id="selectedDateTitle">Selected date</strong><span id="selectedStatus" class="status-chip">Not recorded</span></div><div id="selectedDateDetails" class="muted"></div><div class="history-actions"><button class="outline" id="historyDone">Mark done</button><button class="outline" id="historySkip">Skip</button><button class="outline" id="historyUnset">Clear</button><button class="outline" id="historyNote">Note</button></div></div>
+ <div class="card"><div class="card-head"><strong>Month summary</strong></div><div class="stats-grid compact"><div class="statbox"><span>Completed</span><strong id="monthDone">0</strong></div><div class="statbox"><span>Scheduled</span><strong id="monthScheduled">0</strong></div><div class="statbox"><span>Rate</span><strong id="monthRate">0%</strong></div><div class="statbox"><span>Skipped</span><strong id="monthSkipped">0</strong></div></div></div>
+</section>
+<section id="archive" class="screen hidden">
+ <div class="page-heading"><h1>Archived habits</h1><p>Archived habits retain their history.</p></div><div id="archiveList"></div>
+ <div id="archiveEmpty" class="empty"><div class="empty-icon">▤</div><p>No archived habits.</p></div>
+</section>
+<section id="settings" class="screen hidden">
+ <div class="page-heading"><h1>Settings</h1><p>Personalize your tracker and manage data.</p></div>
+ <div class="settings-section"><div class="eyebrow">APPEARANCE</div>
+  <div class="setting-row"><div><strong>Theme</strong><small>Light or dark appearance</small></div><select id="theme" class="setting-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System (light fallback)</option></select></div>
+  <div class="setting-row"><div><strong>Week starts on</strong><small>Calendar and weekly overview</small></div><select id="weekStart" class="setting-select"><option value="1">Monday</option><option value="0">Sunday</option><option value="6">Saturday</option></select></div>
+  <div class="setting-row"><div><strong>Day starts at</strong><small>Useful for late-night routines</small></div><select id="dayStart" class="setting-select"><option value="0">12:00 AM</option><option value="3">3:00 AM</option><option value="4">4:00 AM</option><option value="5">5:00 AM</option></select></div>
+  <div class="setting-row"><div><strong>Confetti on completion</strong><small>Small celebratory animation</small></div><input type="checkbox" id="confetti" class="switch"></div>
+ </div>
+ <div class="settings-section"><div class="eyebrow">REMINDERS</div><div class="setting-row"><div><strong>Notification permission</strong><small>Web notifications require permission and may not fire when app is closed.</small></div><button class="outline" id="notifyPermission">Enable</button></div><div class="muted small">Each habit can store its own reminder time and weekdays in the editor. This PWA does not implement reliable native Android exact alarms.</div></div>
+ <div class="settings-section"><div class="eyebrow">DATA</div>
+  <div class="setting-row"><div><strong>Export JSON backup</strong><small>Includes habits, tracking entries, notes and settings.</small></div><button class="outline" id="exportJson">Export</button></div>
+  <div class="setting-row"><div><strong>Export CSV</strong><small>Habit and daily entry rows for spreadsheets.</small></div><button class="outline" id="exportCsv">Export</button></div>
+  <div class="setting-row"><div><strong>Restore JSON backup</strong><small>Import a backup made by this prototype.</small></div><button class="outline" id="importJson">Import</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+  <div class="setting-row"><div><strong>Reset all data</strong><small>Delete all local habits and records.</small></div><button class="danger-outline" id="reset">Reset</button></div>
+ </div>
+ <div class="about">Habit Tracker · Extensive PWA prototype · local-first</div>
+</section>
+<section id="editor" class="screen hidden">
+ <div class="backhead"><button class="icon" data-back="home">‹</button><div><div class="head-title" id="editorHeading">Create habit</div><div class="muted">Habit setup</div></div></div>
+ <form id="habitForm" class="editor-form">
+ <input type="hidden" id="editId">
+ <label class="label" for="name">Habit name</label><input id="name" class="input" maxlength="100" placeholder="e.g. Read Qur'an" required>
+ <label class="label" for="description">Description <span class="muted">(optional)</span></label><textarea id="description" class="input" rows="2" placeholder="What does this habit mean to you?"></textarea>
+ <div class="two-col"><div><label class="label" for="color">Color</label><select id="color" class="input"><option value="#4caf85">Mint green</option><option value="#5b8def">Blue</option><option value="#e0a14b">Amber</option><option value="#a17be0">Violet</option><option value="#e47788">Rose</option><option value="#58a6a6">Teal</option><option value="#80868b">Grey</option></select></div><div><label class="label" for="type">Tracking type</label><select id="type" class="input"><option value="boolean">Yes / No</option><option value="measurable">Measurable</option></select></div></div>
+ <div id="measureOptions" class="hidden"><div class="two-col"><div><label class="label" for="goal">Target value</label><input id="goal" class="input" type="number" step="any" min="0" value="1"></div><div><label class="label" for="unit">Unit</label><input id="unit" class="input" placeholder="pages, ml, minutes"></div></div><label class="label" for="goalType">Target condition</label><select id="goalType" class="input"><option value="atLeast">At least target</option><option value="atMost">At most target</option></select></div>
+ <div class="section-divider"></div><div class="label">Frequency</div><select id="frequency" class="input"><option value="daily">Every day</option><option value="custom">Specific weekdays</option><option value="timesWeek">Several times per week</option><option value="timesMonth">Several times per month</option><option value="alternate">Every other day</option><option value="weekly">Every week</option><option value="biweekly">Every other week</option></select>
+ <div id="weekdayOptions" class="weekday-picks hidden"><label><input type="checkbox" value="1"> Mon</label><label><input type="checkbox" value="2"> Tue</label><label><input type="checkbox" value="3"> Wed</label><label><input type="checkbox" value="4"> Thu</label><label><input type="checkbox" value="5"> Fri</label><label><input type="checkbox" value="6"> Sat</label><label><input type="checkbox" value="0"> Sun</label></div>
+ <div id="periodCountWrap" class="hidden"><label class="label" for="periodCount">Target repetitions per period</label><input id="periodCount" class="input" type="number" min="1" max="31" value="3"></div>
+ <div class="section-divider"></div><div class="label">Reminder</div>
+ <div class="reminder-panel"><label class="checkrow"><input type="checkbox" id="reminderOn"> <span>Remind me</span></label><input id="reminderTime" type="time" class="input time" value="08:00"></div>
+ <div id="reminderDays" class="weekday-picks"><label><input type="checkbox" value="1" checked> Mon</label><label><input type="checkbox" value="2" checked> Tue</label><label><input type="checkbox" value="3" checked> Wed</label><label><input type="checkbox" value="4" checked> Thu</label><label><input type="checkbox" value="5" checked> Fri</label><label><input type="checkbox" value="6" checked> Sat</label><label><input type="checkbox" value="0" checked> Sun</label></div>
+ <div class="editor-footer"><button type="button" class="outline" id="cancelEdit">Cancel</button><button type="submit" class="primary">Save habit</button></div>
+ </form>
+</section>
+</main>
+<nav class="bottom-nav"><button data-nav="home" class="active"><span>☑</span><small>Habits</small></button><button data-nav="stats"><span>▥</span><small>Statistics</small></button><button data-nav="history"><span>▦</span><small>History</small></button><button data-nav="settings"><span>⚙</span><small>Settings</small></button></nav>
+</div>
+<div id="modal" class="modal-scrim hidden"><div class="modal"><div class="modal-head"><strong id="modalTitle">Edit entry</strong><button class="icon" id="modalClose">×</button></div><div id="modalBody"></div><div class="modal-actions" id="modalActions"></div></div></div>
+<div id="toast" class="toast"></div>
 <script src="app.js"></script>
-</body>
-</html>
+</body></html>
