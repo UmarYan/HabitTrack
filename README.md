@@ -1,38 +1,16 @@
-# Loop-like Habit Tracker PWA (starter)
+# Loop-like Habit Tracker PWA — V0.4
 
-Offline-first browser/PWA habit tracker with a compact Loop-inspired weekly grid.
+This update rebuilds the visual structure from the user-provided Loop Habit Tracker screenshots: grey habit overview toolbar and compact weekly status columns; orange habit detail toolbar; overview metrics, score/history canvases, month calendar tiles, best-streak list and frequency rows.
+
+## Features
+- Habit create/edit/delete, icon/emoji, color, description, schedule (daily/weekdays/weekends/custom/3x weekly), reminder-time field, target/unit
+- Four recent daily columns with cycle states: unmarked → complete → skipped → unmarked
+- Habit detail analytics with Score, History, Calendar, Best streaks and Frequency
+- Overview score, Month/Year estimates and total completed count
+- JSON backup/import, CSV export, localStorage persistence and PWA service-worker caching
 
 ## Run
-Serve this directory on HTTPS or localhost (service worker requires a secure context). GitHub Pages/Netlify/Cloudflare Pages work. Open `index.html`; install from the browser menu.
+Serve this folder over HTTPS or localhost, then install from your browser menu. Static hosting (GitHub Pages, Netlify, Cloudflare Pages) is suitable.
 
-## Version 0.3 additions
-- Monthly habit calendar with previous/next month navigation and scheduled/completed/skipped markers
-- Current-day highlighting and calendar legend
-- Safer import validation; service-worker cache version bumped
-
-## Included
-- Habit add/edit/delete, color and descriptions
-- Daily, weekdays, weekends, custom weekdays and 3×/week schedule options
-- Weekly checkmarks (complete / skip / clear)
-- LocalStorage persistence
-- Strength score overview, recent history
-- JSON backup restore and CSV checkmark export
-- Installable manifest and offline service worker
-
-## Validation
-- JavaScript syntax checked with Node.js
-- ZIP archive integrity checked
-- Browser interaction testing was not performed in this environment
-
-## Limitations
-This is an independently implemented PWA prototype, not the full native Loop Android app. Reminder permissions are requested but reliable timed background delivery, Android widgets, SQLite export and native integrations are not implemented in a PWA. Habit strength is a simple weighted approximation, not Loop's original scoring algorithm.
-
-## Licensing note
-This prototype's code is newly written and does not bundle Loop source. If you later port or modify Loop's GPL-3.0 code, preserve copyright and license notices and comply with GPLv3 when distributing the derivative. Loop source: https://github.com/iSoron/uhabits
-
-## v0.2 iteration
-- Added a habit detail view opened by tapping a habit name.
-- Detail view shows weighted strength, a basic current streak, 30-day completion rate, calendar-style recent checkmarks, and schedule summary.
-- Habit editing is available from the detail view.
-
-This remains a prototype: the streak and strength calculations are intentionally approximate and are not claimed to match Loop's exact algorithms.
+## Accuracy notes
+This is a custom PWA UI/behavior implementation based on the supplied screenshots. Score calculation and chart data are approximations, not the verified original Loop algorithms. Native Android widgets and reliable background notification scheduling are not available in this PWA. Android/browser visual verification has not been performed in this environment.
