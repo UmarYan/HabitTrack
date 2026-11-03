@@ -1,22 +1,23 @@
-# HabitFlow v0.1 — PWA Starter
+# HabitFlow v0.2 — PWA
 
-A foundational Android-first, local-first HabitFlow PWA.
+## Included in this increment
+- Premium/Material-inspired responsive UI with Home, Habits, Insights, Calendar, Settings tabs
+- IndexedDB persistence retained using the same database and store (`habitflow-db`, `habits`)
+- Habit create/edit, archive/restore, search and filtering
+- Boolean, quantity, duration tracking
+- Weekday schedule configuration
+- Daily completion and importance-weighted score indicators
+- 30-day insight summary and visual heatmap
+- Month calendar with date-level habit detail
+- JSON backup export and additive restore (matching IDs replaced, unrelated records retained)
+- Light, dark, and system theme controls
+- PWA app shell cache bumped to v2
 
-## Included
-- Responsive premium/Material-inspired dashboard
-- IndexedDB habit persistence
-- Boolean, quantity, and duration tracking
-- Habit name, category, importance weight
-- Daily progress ring and week visualization
-- Light/dark theme toggle
-- PWA manifest, SVG icon, service worker shell caching
+## Deploy
+Serve over HTTPS or localhost for PWA service-worker/install support. Deploy folder contents to GitHub Pages or Cloudflare Pages.
 
-## Run
-Serve this folder using a local web server or deploy it to GitHub Pages / Cloudflare Pages.
-Service workers and installability require HTTPS (or localhost). Opening `index.html` directly can still show the interface, but PWA features may not work.
-
-## Current scope notes
-- Navigation sections other than Home are placeholders.
-- Quantity/duration records currently accept one daily value.
-- This starter does not yet implement schedule management, reminders, advanced scoring, calendar, insights, export/restore, or cloud sync.
-- The service worker caches the app shell; IndexedDB holds habit records.
+## Notes / scope
+- No cloud sync or account system.
+- Browser notifications and reminder scheduling are not included in this increment.
+- Advanced scoring settings, custom formulas, habit milestones and routines remain planned.
+- Existing v0.1 habit records are retained because the IndexedDB schema/database remains compatible.
