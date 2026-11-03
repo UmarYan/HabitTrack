@@ -23,107 +23,123 @@ form textarea{display:block;width:100%;margin-top:7px;border:1px solid var(--lin
 .journal-date-controls{display:grid;grid-template-columns:42px minmax(0,1fr) 42px auto;gap:8px;align-items:center;margin-bottom:18px}.journal-date-controls input{margin:0;min-width:0;padding:10px}.journal-date-controls button{padding:9px 11px}.journal-label{display:block;font-size:13px;font-weight:700;margin:15px 0 7px}.journal-editor select{margin:0}.journal-editor textarea{line-height:1.55;min-height:64px}.journal-history{display:grid;gap:9px;margin-top:12px}.journal-history-item{display:grid;gap:7px;text-align:left;width:100%;border:1px solid var(--line);border-radius:14px;background:var(--surface2);color:var(--text);padding:12px;cursor:pointer}.journal-history-item>span{display:flex;justify-content:space-between;align-items:center;gap:12px}.journal-history-item strong{font-size:12px}.journal-history-item small{font-size:11px;color:var(--muted)}.journal-history-item p{font-size:12px;color:var(--muted);line-height:1.45;margin:0;overflow-wrap:anywhere}.journal-history-item[aria-current="date"]{border-color:var(--primary)}
 @media(max-width:430px){.journal-date-controls{grid-template-columns:36px minmax(0,1fr) 36px auto;gap:5px}.journal-date-controls button{padding:8px}.journal-date-controls input{padding:9px 5px;font-size:12px}}
 
-/* v1.1 — Compact, minimal, modern UI polish */
-:root{--shadow:0 3px 14px rgba(45,30,75,.045)}
-.app-shell{max-width:720px;padding:20px 18px 88px}
-.topbar{align-items:center;margin-bottom:18px}
+/* v1.2 — visibly compact, refined UI pass (based directly on v1.0) */
+:root{--shadow:0 2px 12px rgba(45,30,75,.045)}
+body{font-size:13px;letter-spacing:-.01em}
+.app-shell{max-width:680px;padding:18px 16px 86px}
+.topbar{align-items:center;margin-bottom:16px}
+.topbar h1{font-size:25px;letter-spacing:-1.15px}
 .eyebrow{font-size:9px;letter-spacing:1.25px;margin-bottom:5px}
-.topbar h1{font-size:25px;letter-spacing:-.8px}
 .date{font-size:12px;margin-top:4px}
 .icon-button{width:36px;height:36px;border-radius:12px;font-size:19px}
-.progress-card{border-radius:20px;padding:17px 18px;gap:14px;margin-bottom:22px;box-shadow:var(--shadow)}
-.progress-copy h2{font-size:29px;margin:2px 0}
-.subtext{font-size:12px;line-height:1.45;margin-top:5px}
-.progress-card .subtext{max-width:260px}
+.progress-card{padding:16px 18px;border-radius:20px;gap:14px;margin-bottom:20px;box-shadow:none}
+.progress-copy h2{font-size:30px;margin:2px 0}
+.progress-copy .subtext{font-size:11px;margin-top:4px}
+.score-chip{padding:5px 8px;font-size:10px;border-radius:9px;margin-top:8px;gap:6px}
+.score-chip strong{font-size:11px}
 .ring{width:82px;height:82px;flex-basis:82px}
-.ring:before{inset:7px}
+.ring:before{inset:6px}
 .ring-inner strong{font-size:20px}
 .ring-inner span{font-size:9px}
-.score-chip{padding:5px 8px;border-radius:9px;font-size:10px;margin-top:8px;gap:6px}
-.score-chip strong{font-size:11px}
-.section-heading{margin-bottom:11px;gap:9px}
-.section-heading h2{font-size:18px;letter-spacing:-.35px}
-.section-heading .eyebrow{margin-bottom:4px}
-.primary-button,.secondary-button{padding:9px 12px;border-radius:11px;font-size:12px;transition:transform .15s ease,filter .15s ease}
-.primary-button:hover,.secondary-button:hover{filter:brightness(.97);transform:translateY(-1px)}
+.section-heading{gap:8px;margin-bottom:10px}
+.section-heading h2{font-size:17px;letter-spacing:-.4px}
 .home-controls{gap:6px}
-.home-controls select{padding:8px 9px;font-size:11px;border-radius:10px;max-width:130px}
-.home-controls .primary-button{padding:9px 11px}
-.habit-list{gap:8px}
-.habit-group{gap:8px;margin-bottom:10px}
+.home-controls select{max-width:118px;padding:8px 7px;font-size:11px;border-radius:10px}
+.primary-button,.secondary-button{padding:9px 12px;border-radius:10px;font-size:12px}
+.home-controls .primary-button{padding:9px 11px;font-size:11px}
+.habit-list{gap:7px}
+.habit-group{gap:7px;margin-bottom:9px}
 .group-heading{padding:2px 2px 0}
 .group-heading h3{font-size:12px}
-.group-heading span{font-size:10px;padding:4px 7px;border-radius:8px}
-.habit-card{gap:10px;padding:11px 12px;border-radius:15px;box-shadow:var(--shadow);border-left-width:3px}
-.habit-symbol{width:36px;height:36px;flex-basis:36px;border-radius:11px;font-size:17px}
-.habit-info h3{font-size:13px;margin-bottom:3px;letter-spacing:-.1px}
-.habit-meta{font-size:10px;line-height:1.4}
-.habit-progress{height:4px;margin-top:6px}
+.group-heading span{font-size:10px;padding:4px 7px}
+.habit-card{gap:10px;padding:10px 11px;border-radius:14px;border-left-width:3px;box-shadow:none}
+.habit-symbol{width:34px;height:34px;flex-basis:34px;border-radius:10px;font-size:17px}
+.habit-info h3{font-size:13px;margin:0 0 3px;letter-spacing:-.15px}
+.habit-meta{font-size:10px;line-height:1.35}
+.habit-progress{height:3px;margin-top:6px}
 .habit-actions{gap:5px}
-.check-button{width:34px;height:34px;flex-basis:34px;border-width:1.5px;border-radius:11px;font-size:16px}
-.skip-button{width:30px;height:30px;border-radius:9px;font-size:16px}
-.empty-state{padding:24px 16px;border-radius:16px}
-.empty-state .emoji{font-size:27px}
-.empty-state h3{font-size:15px;margin:8px 0 4px}
-.empty-state p{font-size:12px}
-.weekly-card{margin-top:20px;border-radius:18px;padding:15px;box-shadow:var(--shadow)}
-.weekly-card .section-heading h2{font-size:17px}
-.week-badge{font-size:11px;padding:5px 8px;border-radius:9px}
-.week-bars{gap:7px;height:82px}
-.bar-track{height:58px;max-width:22px;border-radius:7px}
+.check-button{width:32px;height:32px;flex-basis:32px;border-radius:10px;font-size:15px;border-width:1.5px}
+.skip-button{width:28px;height:28px;border-radius:9px;font-size:15px}
+.empty-state{padding:22px 15px;border-radius:15px}
+.empty-state .emoji{font-size:26px}
+.empty-state h3{font-size:15px;margin:7px 0 4px}
+.empty-state p{font-size:11px}
+.weekly-card{margin-top:18px;padding:14px;border-radius:17px;box-shadow:none}
+.weekly-card .compact{margin-bottom:12px}
+.week-bars{height:78px;gap:7px}
+.bar-track{height:52px;max-width:20px;border-radius:6px}
 .day-bar{gap:5px}
-.day-bar small{font-size:10px}
+.day-bar small{font-size:9px}
+.week-badge{padding:5px 8px;border-radius:9px;font-size:11px}
 .weekly-card>.subtext{font-size:10px;margin-top:6px}
-.bottom-nav{padding:7px 6px max(7px,env(safe-area-inset-bottom));box-shadow:0 -4px 18px rgba(35,24,55,.035)}
-.nav-item{gap:3px;font-size:9px;min-width:48px}
-.nav-item span{font-size:19px}
-.page-title{margin-bottom:16px}
-.page-title h2{font-size:22px}
-.manage-list{gap:8px}
-.manage-card{padding:12px;border-radius:15px;box-shadow:var(--shadow)}
-.manage-main{gap:4px}
-.manage-main strong{font-size:13px}
+.bottom-nav{max-width:680px;padding:7px 6px max(7px,env(safe-area-inset-bottom));box-shadow:0 -3px 12px rgba(30,20,45,.035)}
+.nav-item{min-width:0;flex:1;gap:3px;font-size:9px}
+.nav-item span{font-size:18px}
+.page-view{padding-bottom:8px}
+.page-title{margin-bottom:15px}
+.page-title h2{font-size:22px;letter-spacing:-.5px}
+.page-title .subtext{font-size:11px;margin-top:5px}
+.manage-list{gap:7px}
+.manage-card{padding:10px 11px;border-radius:14px;box-shadow:none;gap:8px}
+.manage-main{gap:3px}
+.manage-main strong{font-size:12px}
 .manage-main small{font-size:10px}
 .manage-actions{gap:5px}
-.manage-actions .secondary-button{padding:7px 9px;font-size:10px}
-.stats-grid{gap:9px;margin:15px 0}
-.stat-card{padding:13px;border-radius:15px;gap:7px;box-shadow:var(--shadow)}
-.stat-card span{font-size:11px}
-.stat-card strong{font-size:22px}
-.settings-card{padding:15px;border-radius:17px;margin-bottom:10px;box-shadow:var(--shadow)}
+.manage-actions .secondary-button{padding:7px 9px;font-size:10px;border-radius:8px}
+.filter-row{gap:7px;margin-bottom:10px}
+.filter-row input,.filter-row select{padding:9px 10px;border-radius:10px;font-size:12px}
+.stats-grid{gap:8px;margin:13px 0}
+.stat-card{padding:12px;border-radius:14px;gap:5px;box-shadow:none}
+.stat-card span{font-size:10px}
+.stat-card strong{font-size:21px}
+.settings-card{padding:13px;margin-bottom:9px;border-radius:15px;box-shadow:none}
 .settings-card h3{font-size:14px}
-.calendar-card{padding:10px;border-radius:17px;box-shadow:var(--shadow)}
-.nav-message{padding:12px;border-radius:14px;font-size:12px}
-input,select,form textarea{padding:10px;border-radius:10px;font-size:13px}
-form label{font-size:12px;margin:11px 0}
+.settings-card>.subtext{font-size:11px;line-height:1.4;margin-top:5px}
+.settings-actions{gap:6px;margin-top:10px}
+.small-note{font-size:10px;line-height:1.4;margin-top:8px}
+.pref-row{font-size:11px;margin:10px 0;gap:9px}
+.pref-row input{width:17px;height:17px}
+.score-setting{margin:11px 0}
+.score-setting label{font-size:11px;margin-bottom:5px}
+fieldset{padding:10px;border-radius:12px;margin:11px 0}
+legend{font-size:11px}
+.weekday-picker{gap:4px}
+.weekday-picker label{padding:6px;font-size:9px;border-radius:7px}
+.heatmap{gap:4px;margin:6px 0 10px}
+.heat-tile{border-radius:5px;font-size:9px}
+.calendar-card{padding:9px;border-radius:15px;box-shadow:none}
+.calendar-grid{gap:4px}
+.calendar-day{border-radius:7px;font-size:11px}
+.weekday-labels{margin-bottom:5px}
+.weekday-labels span{font-size:9px;padding:3px 0}
+.nav-message{padding:11px;border-radius:12px;font-size:11px;margin-top:10px}
+.analytics-head{align-items:center}
+.trend-chart{height:120px;margin:12px 0 5px;gap:3px}
+.trend-track{height:94px;max-width:14px;border-radius:5px}
+.habit-trends{gap:11px;margin-top:10px}
+.category-progress{gap:10px;margin-top:10px}
+.milestone-list{gap:7px;margin-top:10px}
+.milestone-row{padding:9px 10px;border-radius:11px}
+.milestone-row strong{font-size:11px}
+.milestone-row small{font-size:10px}
+.milestone-badge{padding:5px 7px;border-radius:8px;font-size:10px}
+.journal-date-controls{grid-template-columns:34px minmax(0,1fr) 34px auto;gap:5px;margin-bottom:12px}
+.journal-date-controls input{padding:8px;font-size:11px}
+.journal-date-controls button{padding:7px 9px}
+.journal-label{font-size:11px;margin:11px 0 5px}
+.journal-editor textarea{min-height:52px;padding:9px;font-size:12px}
+.journal-editor select{padding:9px;font-size:12px}
+.journal-history{gap:6px;margin-top:9px}
+.journal-history-item{padding:9px;border-radius:11px;gap:5px}
+.journal-history-item strong{font-size:11px}
+.journal-history-item small,.journal-history-item p{font-size:10px}
+dialog{border-radius:18px;padding:17px;width:min(94vw,440px)}
+.dialog-head{margin-bottom:13px}
 .dialog-head h2{font-size:19px}
-dialog{border-radius:20px;padding:19px}
-fieldset{padding:10px;border-radius:12px}
-.weekday-picker label{padding:6px;font-size:10px}
-.heatmap{gap:5px}
-.heat-tile{border-radius:6px}
-.calendar-day{border-radius:8px}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
-button:active{transform:scale(.98)}
-@media(min-width:600px){.app-shell{padding-top:26px}.progress-card{padding:18px 22px}.habit-card{padding:12px 14px}}
-@media(max-width:430px){
-.app-shell{padding-left:12px;padding-right:12px;padding-top:16px}
-.topbar{margin-bottom:15px}.topbar h1{font-size:23px}
-.progress-card{padding:14px;border-radius:17px;gap:9px;margin-bottom:18px}
-.progress-copy h2{font-size:26px}.progress-card .subtext{font-size:11px;max-width:180px}
-.ring{width:68px;height:68px;flex-basis:68px}.ring:before{inset:6px}
-.ring-inner strong{font-size:17px}.ring-inner span{font-size:8px}
-.score-chip{font-size:9px;padding:4px 6px;margin-top:6px}
-.section-heading h2{font-size:16px}
-.home-controls{gap:5px}.home-controls select{max-width:100px;padding:8px 5px;font-size:10px}
-.home-controls .primary-button{padding:8px;font-size:11px;white-space:nowrap}
-.habit-card{padding:9px;border-radius:13px;gap:8px}
-.habit-symbol{width:32px;height:32px;flex-basis:32px;border-radius:9px;font-size:15px}
-.habit-info h3{font-size:12px}.habit-meta{font-size:9px}
-.check-button{width:31px;height:31px;flex-basis:31px;border-radius:9px}
-.skip-button{width:27px;height:27px;border-radius:8px;font-size:14px}
-.weekly-card{padding:12px;margin-top:16px}
-.week-bars{height:74px;gap:5px}.bar-track{height:51px;max-width:20px}
-.nav-item{min-width:43px}
-}
+form label{font-size:11px;margin:9px 0}
+input,select,form textarea{padding:9px 10px;border-radius:10px;font-size:12px;margin-top:5px}
+input[type=color]{height:36px}
+.dialog-actions{gap:7px;margin-top:14px}
+@media(min-width:600px){.app-shell{padding-top:22px}.progress-card{padding:16px 20px}.habit-card{padding:10px 12px}}
+@media(max-width:430px){.app-shell{padding:14px 12px 82px}.topbar h1{font-size:23px}.progress-card{padding:13px 14px;gap:10px}.progress-copy h2{font-size:27px}.ring{width:74px;height:74px;flex-basis:74px}.section-heading h2{font-size:16px}.home-controls select{max-width:104px;padding:7px 5px;font-size:10px}.home-controls .primary-button{padding:8px;font-size:10px}.habit-card{padding:9px;gap:8px}.habit-symbol{width:31px;height:31px;flex-basis:31px;font-size:15px}.habit-info h3{font-size:12px}.habit-meta{font-size:9px}.check-button{width:29px;height:29px;flex-basis:29px}.skip-button{width:26px;height:26px}.weekly-card{padding:12px}.bottom-nav{padding-left:3px;padding-right:3px}.nav-item{font-size:8px}.nav-item span{font-size:17px}.settings-card{padding:11px}.manage-card{flex-direction:row;align-items:center}.manage-actions{justify-content:flex-end}.filter-row{flex-direction:row}.filter-row select{width:auto;max-width:48%}.journal-date-controls{grid-template-columns:31px minmax(0,1fr) 31px auto}.journal-date-controls input{padding:7px 4px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
