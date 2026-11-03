@@ -1,7 +1,77 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#424242"><link rel="manifest" href="manifest.json"><title>Habits</title><link rel="stylesheet" href="style.css"></head><body>
-<header id="mainbar"><div class="toolbar"><span class="title">Habits</span><button id="add" aria-label="Add habit">＋</button><button id="filter" aria-label="Filter">☰</button><button id="menu" aria-label="More">⋮</button></div></header>
-<header id="detailbar" hidden><div class="toolbar"><button id="back">‹</button><span id="detailIcon">🔴</span><span id="detailTitle" class="title">Habit</span><button id="edit">✎</button><button id="detailMenu">⋮</button></div></header>
-<main id="mainview"><div class="dayhead" id="dayhead"></div><div id="habits"></div><div id="empty" class="empty">No habits yet.<br>Tap ＋ to add a habit.</div></main>
-<main id="detailview" hidden><section class="intro"><div id="detailDesc"></div><div class="metadata"><span id="detailSchedule">▦ Every day</span><span id="detailReminder"></span></div><div id="detailTarget" class="target"></div></section><section class="section overview"><h2>Overview</h2><div class="overviewgrid"><div class="ring"><span id="overallScore">0%</span></div><div><b id="scoreTotal">0%</b><small>Score</small></div><div><b id="scoreMonth">0%</b><small>Month</small></div><div><b id="scoreYear">0%</b><small>Year</small></div><div><b id="totalCount">0</b><small>Total</small></div></div></section><section class="section"><div class="sectionhead"><h2>Score</h2><select id="scoreRange"><option>Week</option><option>Month</option><option>Year</option></select></div><canvas id="scoreChart" height="230"></canvas></section><section class="section"><div class="sectionhead"><h2>History</h2><select id="historyRange"><option>Week</option><option>Month</option><option>Year</option></select></div><canvas id="historyChart" height="220"></canvas></section><section class="section"><h2>Calendar</h2><div id="calendar"></div><button id="calendarEdit" class="wideEdit">EDIT</button></section><section class="section"><h2>Best streaks</h2><div id="streaks"></div></section><section class="section"><h2>Frequency</h2><div id="frequency"></div></section></main>
-<dialog id="habitDialog"><form id="habitForm"><div class="dialoghead"><h2 id="formtitle">New habit</h2><button type="button" id="close" class="plain">✕</button></div><label>Habit name<input id="name" required maxlength="70"></label><label>Description<input id="description" maxlength="120" placeholder="Optional description"></label><label>Icon / emoji<input id="icon" maxlength="4" value="🔴"></label><label>Color<input id="color" type="color" value="#ff9800"></label><label>Frequency<select id="schedule"><option value="daily">Every day</option><option value="weekdays">Weekdays</option><option value="weekends">Weekends</option><option value="weekly3">3 times per week</option><option value="custom">Custom weekdays</option></select></label><div id="days" class="days"><label><input type="checkbox" value="1">Mon</label><label><input type="checkbox" value="2">Tue</label><label><input type="checkbox" value="3">Wed</label><label><input type="checkbox" value="4">Thu</label><label><input type="checkbox" value="5">Fri</label><label><input type="checkbox" value="6">Sat</label><label><input type="checkbox" value="0">Sun</label></div><label>Reminder <input id="reminder" type="time"></label><label>Target / unit<input id="target" placeholder="e.g. 30 minutes"></label><div class="formactions"><button type="button" id="delete" class="delete">Delete</button><span></span><button type="button" id="cancel" class="plain">Cancel</button><button class="save">Save</button></div></form></dialog>
-<dialog id="menudialog"><div class="dialoghead"><h2>Menu</h2><button id="menuclose" class="plain">✕</button></div><button class="menuitem" id="export">Export backup</button><label class="menuitem">Import backup<input type="file" id="import" accept="application/json"></label><button class="menuitem" id="csv">Export CSV</button><button class="menuitem" id="sort">Sort habits</button></dialog><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#6750a4">
+  <meta name="description" content="HabitFlow — a local-first habit tracker">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <title>HabitFlow</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="greeting">YOUR DAILY FLOW</p>
+        <h1>HabitFlow <span class="spark">✦</span></h1>
+        <p class="date" id="today-date"></p>
+      </div>
+      <button class="icon-button" id="theme-toggle" aria-label="Toggle theme">◐</button>
+    </header>
+
+    <main>
+      <section class="progress-card" aria-label="Daily progress">
+        <div class="progress-copy">
+          <p class="eyebrow">TODAY'S PROGRESS</p>
+          <h2><span id="completed-count">0</span><span class="muted"> / </span><span id="total-count">0</span></h2>
+          <p class="subtext" id="progress-message">A small step is still a step.</p>
+        </div>
+        <div class="ring" id="progress-ring" role="img" aria-label="0 percent completed">
+          <div class="ring-inner"><strong id="progress-percent">0%</strong><span>complete</span></div>
+        </div>
+      </section>
+
+      <section class="section-heading">
+        <div><p class="eyebrow">YOUR ROUTINE</p><h2>Today's habits</h2></div>
+        <button class="primary-button" id="add-habit">＋ Add habit</button>
+      </section>
+
+      <section id="habit-list" class="habit-list" aria-live="polite"></section>
+
+      <section class="weekly-card">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">YOUR WEEK</p><h2>Consistency</h2></div>
+          <span class="week-badge" id="weekly-percent">0%</span>
+        </div>
+        <div class="week-bars" id="week-bars"></div>
+        <p class="subtext">Your weekly view is based on the habits scheduled each day.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-tab="Home"><span>⌂</span>Home</button>
+      <button class="nav-item" data-tab="Habits"><span>☷</span>Habits</button>
+      <button class="nav-item" data-tab="Insights"><span>◌</span>Insights</button>
+      <button class="nav-item" data-tab="Calendar"><span>▦</span>Calendar</button>
+      <button class="nav-item" data-tab="Settings"><span>⚙</span>Settings</button>
+    </nav>
+  </div>
+
+  <dialog id="habit-dialog">
+    <form id="habit-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">MAKE IT A HABIT</p><h2 id="dialog-title">New habit</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Close">×</button></div>
+      <label>Habit name<input id="habit-name" required maxlength="70" placeholder="e.g. Read Qur'an"></label>
+      <label>Tracking type
+        <select id="habit-type"><option value="boolean">Done / Not done</option><option value="quantity">Quantity target</option><option value="duration">Duration (minutes)</option></select>
+      </label>
+      <label id="target-label" hidden>Daily target<input id="habit-target" type="number" min="1" step="1" value="5"></label>
+      <label>Category<input id="habit-category" maxlength="30" placeholder="e.g. Personal growth"></label>
+      <label>Importance <span class="muted">(weight 1–5)</span><input id="habit-weight" type="number" min="1" max="5" value="3"></label>
+      <div class="dialog-actions"><button type="button" class="secondary-button" id="cancel-dialog">Cancel</button><button type="submit" class="primary-button">Save habit</button></div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
