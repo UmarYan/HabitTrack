@@ -1,7 +1,7 @@
 {
   "name": "HabitFlow",
   "short_name": "HabitFlow",
-  "description": "HabitFlow \u2014 advanced local-first habit tracker",
+  "description": "HabitFlow \u2014 advanced habit scoring and habit tracker",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -16,5 +16,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "0.2"
+  "version": "0.3"
 }
