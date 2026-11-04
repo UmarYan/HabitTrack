@@ -11,3 +11,7 @@ HabitFlow is an offline-first habit tracking PWA.
 
 ## Run
 Serve this folder using a local or HTTPS web server, then install the PWA from your browser.
+
+
+## v2.0 — Popup top-layer fix
+Section details now use the native modal dialog top layer (`showModal()`), so they render above the parent Add/Edit Habit dialog instead of behind it. Closing restores the original content location. Service worker cache version bumped.

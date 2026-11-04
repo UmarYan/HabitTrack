@@ -90,6 +90,7 @@ if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWor
   const {details,content,placeholder,popup}=current;
   if(placeholder.parentNode) placeholder.parentNode.replaceChild(content,placeholder);
   details.open=false;
+  if(popup.open)popup.close();
   popup.remove();
   current=null;
  }
@@ -104,17 +105,21 @@ if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWor
   const placeholder=document.createComment('habit-section-placeholder');
   content.parentNode.insertBefore(placeholder,content);
   content.remove();
-  const popup=document.createElement('div');
-  popup.className='section-popup-backdrop';
-  popup.innerHTML='<section class="section-popup" role="dialog" aria-modal="true" aria-label="Habit details"><header class="section-popup-head"><h3></h3><button type="button" class="icon-button section-popup-close" aria-label="Close">×</button></header><div class="section-popup-body"></div><footer><button type="button" class="primary-button section-popup-done">Done</button></footer></section>';
+  const popup=document.createElement('dialog');
+  popup.className='section-popup-dialog';
+  popup.innerHTML='<section class="section-popup"><header class="section-popup-head"><h3></h3><button type="button" class="icon-button section-popup-close" aria-label="Close">×</button></header><div class="section-popup-body"></div><footer><button type="button" class="primary-button section-popup-done">Done</button></footer></section>';
   popup.querySelector('h3').textContent=summary.textContent.trim();
   popup.querySelector('.section-popup-body').appendChild(content);
   document.body.appendChild(popup);
+  // Refresh the Add/Edit dialog's top-layer position first, then place the section
+  // popup after it so the popup is guaranteed to stack above the form dialog.
+  const habitDialog=$('habit-dialog');
+  if(habitDialog?.open){habitDialog.close();habitDialog.showModal();}
+  popup.showModal();
   current={details,content,placeholder,popup};
   popup.querySelector('.section-popup-close').addEventListener('click',closePopup);
   popup.querySelector('.section-popup-done').addEventListener('click',closePopup);
   popup.addEventListener('click',e=>{if(e.target===popup)closePopup()});
-  const esc=e=>{if(e.key==='Escape'&&current){closePopup();document.removeEventListener('keydown',esc)}};
-  document.addEventListener('keydown',esc);
+  popup.addEventListener('cancel',e=>{e.preventDefault();closePopup()});
  },true);
 })();
