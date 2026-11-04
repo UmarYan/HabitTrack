@@ -1,8 +1,13 @@
-# HabitFlow v1.6 — Compact Habit Creation
+# HabitFlow v1.7 — Unit, Target & Target Type
 
-- Habit creation/edit form now uses progressive disclosure: name and tracking type are visible first, while target, appearance/category, frequency/schedule, reminder/importance, and notes open by tapping their sections.
-- The habit status choices remain Done, Skipped, Not done, and Not determined.
-- Existing records, storage structure, habit history, scoring, journal, backup/restore, and PWA features are preserved.
-- Service worker cache version bumped to v13 to refresh the updated interface.
+HabitFlow is an offline-first habit tracking PWA.
 
-Install/host as a static PWA as before. Data remains local to the browser/device; export backups regularly.
+## v1.7 changes
+- Added Unit, Target, and Target Type (At least / At most) for measurable habits.
+- Kept these controls inside a collapsed “Unit, target & target type” details section; tap to expand.
+- Measurable fields appear only for Quantity and Duration tracking types.
+- Unit values are displayed in the habit progress and management summaries.
+- Existing features and IndexedDB records are preserved; new habit properties are backward compatible.
+
+## Run
+Serve this folder using a local or HTTPS web server, then install the PWA from your browser.
