@@ -23,3 +23,10 @@ Habit records use IndexedDB; preferences and journal entries use localStorage. D
 
 ## Validation
 JavaScript syntax and ZIP integrity checks passed. Browser testing was not performed.
+
+
+## v1.5 — Habit Status Picker
+- Adds a four-option daily status selector: Done, Skipped, Not done, and Not determined.
+- Status selection is stored in the existing habit record and is part of the existing JSON backup.
+- Skipped and Not determined records are neutral/excluded from scoring; Not done remains a zero completion.
+- Done fills the boolean habit or reaches the target for quantity/duration habits.
