@@ -82,29 +82,39 @@ setInterval(checkHabitReminders,30000);checkHabitReminders();
 (async()=>{try{db=await openDB();const date=new Date();$('today-date').textContent=date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});const hour=date.getHours();$('greeting').textContent=hour<12?'GOOD MORNING':hour<17?'GOOD AFTERNOON':'GOOD EVENING';const theme=localStorage.getItem('habitflow-theme');if(theme&&theme!=='system')document.documentElement.dataset.theme=theme;loadScoreConfig();await reload()}catch(err){console.error(err);$('habit-list').innerHTML='<div class="empty-state"><h3>Storage unavailable</h3><p>HabitFlow could not initialize local storage in this browser.</p></div>'}})();
 if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('Service worker registration failed',err));
 
-// Section details open as a floating popup instead of expanding inline.
+// Reliable delegated handler: section summaries always open a floating popup.
 (function setupSectionPopups(){
- let activeDetails=null, activeContent=null, placeholder=null, popup=null;
+ let current=null;
  function closePopup(){
-  if(!popup||!activeDetails||!activeContent)return;
-  if(placeholder&&placeholder.parentNode)placeholder.parentNode.replaceChild(activeContent,placeholder);
-  activeDetails.open=false;popup.remove();popup=null;activeDetails=null;activeContent=null;placeholder=null;
+  if(!current)return;
+  const {details,content,placeholder,popup}=current;
+  if(placeholder.parentNode) placeholder.parentNode.replaceChild(content,placeholder);
+  details.open=false;
+  popup.remove();
+  current=null;
  }
- document.querySelectorAll('#habit-form .habit-details > summary').forEach(summary=>{
-  summary.addEventListener('click',e=>{
-   e.preventDefault();
-   if(popup)closePopup();
-   const details=summary.parentElement,content=details.querySelector('.details-content');
-   if(!content)return;
-   activeDetails=details;activeContent=content;placeholder=document.createComment('popup-content-placeholder');
-   content.parentNode.replaceChild(placeholder,content);
-   popup=document.createElement('div');popup.className='section-popup-backdrop';popup.innerHTML='<section class="section-popup" role="dialog" aria-modal="true"><header class="section-popup-head"><h3></h3><button type="button" class="icon-button section-popup-close" aria-label="Close">×</button></header><div class="section-popup-body"></div><footer><button type="button" class="primary-button section-popup-done">Done</button></footer></section>';
-   popup.querySelector('h3').textContent=summary.textContent.trim();popup.querySelector('.section-popup-body').appendChild(content);
-   document.body.appendChild(popup);
-   popup.querySelector('.section-popup-close').addEventListener('click',closePopup);
-   popup.querySelector('.section-popup-done').addEventListener('click',closePopup);
-   popup.addEventListener('click',ev=>{if(ev.target===popup)closePopup()});
-   document.addEventListener('keydown',function esc(ev){if(ev.key==='Escape'&&popup){closePopup();document.removeEventListener('keydown',esc)}});
-  });
- });
+ document.addEventListener('click',function(event){
+  const summary=event.target.closest('#habit-form .habit-details > summary');
+  if(!summary)return;
+  event.preventDefault();event.stopPropagation();
+  if(current)closePopup();
+  const details=summary.parentElement;
+  const content=details.querySelector(':scope > .details-content');
+  if(!content)return;
+  const placeholder=document.createComment('habit-section-placeholder');
+  content.parentNode.insertBefore(placeholder,content);
+  content.remove();
+  const popup=document.createElement('div');
+  popup.className='section-popup-backdrop';
+  popup.innerHTML='<section class="section-popup" role="dialog" aria-modal="true" aria-label="Habit details"><header class="section-popup-head"><h3></h3><button type="button" class="icon-button section-popup-close" aria-label="Close">×</button></header><div class="section-popup-body"></div><footer><button type="button" class="primary-button section-popup-done">Done</button></footer></section>';
+  popup.querySelector('h3').textContent=summary.textContent.trim();
+  popup.querySelector('.section-popup-body').appendChild(content);
+  document.body.appendChild(popup);
+  current={details,content,placeholder,popup};
+  popup.querySelector('.section-popup-close').addEventListener('click',closePopup);
+  popup.querySelector('.section-popup-done').addEventListener('click',closePopup);
+  popup.addEventListener('click',e=>{if(e.target===popup)closePopup()});
+  const esc=e=>{if(e.key==='Escape'&&current){closePopup();document.removeEventListener('keydown',esc)}};
+  document.addEventListener('keydown',esc);
+ },true);
 })();
