@@ -177,3 +177,16 @@ form label{font-size:12px;margin:10px 0}input,select,form textarea{padding:10px;
 .done-choice span{color:var(--good)}.skipped-choice span{color:var(--primary)}.notdone-choice span{color:#d65b5b}.unknown-choice span{color:var(--muted)}
 .status-dialog .dialog-actions{margin-top:14px}
 @media(max-width:380px){.status-button{width:34px;height:34px;flex-basis:34px}.status-choice-grid{gap:5px}.status-choice{padding:10px 2px}.status-choice small{font-size:9px}}
+/* Habit creation form: progressive disclosure keeps the first screen compact. */
+#habit-dialog{max-height: min(88vh,760px);overflow-y:auto;overscroll-behavior:contain}
+.habit-details{border:1px solid var(--line);border-radius:15px;background:var(--surface2);margin:10px 0;overflow:hidden}
+.habit-details>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;font-size:13px;font-weight:700;cursor:pointer;min-height:48px}
+.habit-details>summary::-webkit-details-marker{display:none}
+.habit-details>summary::after{content:'＋';font-size:18px;color:var(--primary);font-weight:500}
+.habit-details[open]>summary::after{content:'−'}
+.habit-details[open]>summary{border-bottom:1px solid var(--line)}
+.habit-details .details-content{padding:3px 13px 12px}
+.habit-details .details-content>label:first-child{margin-top:10px}
+.habit-details fieldset{background:var(--surface);margin:12px 0}
+#habit-dialog form>label{margin:12px 0}
+#habit-dialog .dialog-actions{position:sticky;bottom:-23px;background:var(--surface);padding:13px 0 3px;margin-top:12px}
